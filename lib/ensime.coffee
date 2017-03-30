@@ -35,13 +35,11 @@ module.exports = Ensime =
   addCommandsForStoppedState: ->
     @stoppedCommands = new CompositeDisposable
     @stoppedCommands.add atom.commands.add 'atom-workspace', "ensime:start", => @selectAndBootAnEnsime()
-    @stoppedCommands.add atom.commands.add 'atom-workspace', "ensime:update-server", => @selectAndUpdateAnEnsime()
 
   addCommandsForStartedState: ->
     @startedCommands = new CompositeDisposable
     @startedCommands.add atom.commands.add 'atom-workspace', "ensime:stop", => @selectAndStopAnEnsime()
     @startedCommands.add atom.commands.add 'atom-workspace', "ensime:start", => @selectAndBootAnEnsime()
-    @startedCommands.add atom.commands.add 'atom-workspace', "ensime:update-server", => @selectAndUpdateAnEnsime()
 
 
     @startedCommands.add atom.commands.add scalaSourceSelector, "ensime:mark-implicits", => @markImplicits()
@@ -286,11 +284,10 @@ module.exports = Ensime =
 
     @selectDotEnsime(stopDotEnsime, (dotEnsime) => @instanceManager?.isStarted(dotEnsime.path))
   
-  selectAndUpdateAnEnsime: ->
+  selectAndStopAnEnsimeServer: ->
     @selectDotEnsime (selectedDotEnsime) ->
       dotEnsimeUtils().parseDotEnsime(selectedDotEnsime.path).then (dotEnsime) ->
-        ensimeStartup().updateEnsimeServer(dotEnsime, -> atom.notifications.addSuccess("Updated!"))
-    
+        # TODO: Stop ensime instance
 
   typecheckAll: ->
     @apiOfOfActiveTextEditor()?.typecheckAll()

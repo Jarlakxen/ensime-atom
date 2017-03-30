@@ -1,8 +1,8 @@
 module.exports =
-  ensimeServerVersion:
-    description: 'Version of Ensime server'
+  assemblyJar: 
+    description: 'Use the following assembly jar instead of normal bootstrap'
     type: 'string'
-    default: "1.0.0"
+    default: ''
     order: 10
   sbtExec:
     description: "Full path to sbt. 'which sbt'"
@@ -10,7 +10,7 @@ module.exports =
     default: ''
     order: 20
   ensimeServerFlags:
-    description: 'java flags for ensime server startup'
+    description: 'Extra java flags for ensime server startup'
     type: 'string'
     default: ''
     order: 40
